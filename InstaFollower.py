@@ -1,10 +1,3 @@
-# 1. Create a class called InstaFollower
-
-# 2. In the init() method, create the Selenium driver .
-
-# 3. Create three methods - login() and find_followers() and follow().
-
-# 4. Outside of the class, initialise the object and call the three methods in order.
 import time
 from selenium import webdriver
 from selenium.webdriver.common import keys
@@ -18,10 +11,23 @@ ig_password = "abcde12345"
 
 class InstaFollower:
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.driver = webdriver.Chrome(executable_path=CHROME_DRIVER_PATH)
 
     def login(self):
+        ig_url = "https://www.instagram.com/accounts/login/"
+        self.driver.get(ig_url)
+        time.sleep(5)
+
+        email = self.driver.find_element_by_xpath(
+            '//*[@id="loginForm"]/div/div[1]/div/label/input')
+        email.send_keys(ig_id)
+
+        password = self.driver.find_element_by_xpath(
+            '//*[@id="loginForm"]/div/div[2]/div/label/input')
+        password.send_keys(ig_password)
+        password.send_keys(keys.Keys.ENTER)
+
         print("in login function")
 
     def find_followers(self):
@@ -33,5 +39,5 @@ class InstaFollower:
 
 ig = InstaFollower()
 ig.login()
-ig.find_followers()
-ig.follow()
+# ig.find_followers()
+# ig.follow()
